@@ -2,12 +2,12 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "scences/navbar";
-import FriendListWidget from "scences/widgets/FriendListWidget";
-import MyPostWidget from "scences/widgets/MyPostWidget";
+import Navbar from "../navbar";
+import FriendListWidget from "../widgets/FriendListWidget";
+import MyPostWidget from "../widgets/MyPostWidget";
 
-import PostsWidget from "scences/widgets/PostsWidget";
-import UserWidget from "scences/widgets/UserWidget";
+import PostsWidget from "../widgets/PostsWidget";
+import UserWidget from "../widgets/UserWidget";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);

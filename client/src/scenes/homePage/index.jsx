@@ -1,11 +1,11 @@
-import Navbar from "scences/navbar";
+import Navbar from "../navbar";
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
-import UserWidget from "scences/widgets/UserWidget";
-import MyPostWidget from "scences/widgets/MyPostWidget";
-import PostsWidget from "scences/widgets/PostsWidget";
-import AdvertWidget from "scences/widgets/AdverWidget";
-import FriendListWidget from "scences/widgets/FriendListWidget";
+import UserWidget from "../widgets/UserWidget";
+import MyPostWidget from "../widgets/MyPostWidget";
+import PostsWidget from "../widgets/PostsWidget";
+import AdvertWidget from "../widgets/AdvertWidget";
+import FriendListWidget from "../widgets/FriendListWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
