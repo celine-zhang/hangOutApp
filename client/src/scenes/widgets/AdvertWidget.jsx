@@ -21,7 +21,7 @@ const AdvertWidget = () => {
         width="100%"
         height="auto"
         alt="adver"
-        src="http://localhost:3001/assets/kattie.jpeg"
+        src="https://hangout-kr2s.onrender.com/assets/kattie.jpeg"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
       <FlexBetween>
