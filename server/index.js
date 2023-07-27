@@ -55,17 +55,18 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
-//process.env.MONGO_URL ||
+//process.env.MONGO_URL
+//mongodb://127.0.0.1:27017/Cecidia
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Cecidia", {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-    // useUnifiedTopology: true,
+    useUnifiedTopology: true,
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
     /* ADD data one Time */
-    User.insertMany(users);
-    Post.insertMany(posts);
+    // User.insertMany(users);
+    // Post.insertMany(posts);
     console.log("Database connected");
   })
   .catch((error) => console.log(`${error} did not connect`));
