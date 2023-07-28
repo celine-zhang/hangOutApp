@@ -56,17 +56,25 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+/* Database */
+const dbUrl = process.env.MONGO_URL;
+//process.env.MONGO_URL
+//mongodb://127.0.0.1:27017/Cecidia
 
 /* Session */
 
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 const store = MongoStore.create({
-  mongoUrl: process.env.MONGO_URL,
+  mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60,
   crypto: {
     secret,
   },
 });
+store.on("error", function (e) {
+  console.log("Session store error", e);
+});
+
 const sessionConfig = {
   store,
   name: "session",
@@ -84,10 +92,9 @@ app.use(session(sessionConfig));
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
-//process.env.MONGO_URL
-//mongodb://127.0.0.1:27017/Cecidia
+
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
