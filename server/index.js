@@ -18,6 +18,9 @@ import { verifyToken } from "./middleware/auth.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import { users, posts } from "./data/index.js";
+import MongoStore from "connect-mongo";
+import session from "express-session";
+
 /* configurations */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -53,6 +56,32 @@ app.post("/posts", verifyToken, upload.single("picture"), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+
+/* Session */
+
+const secret = process.env.SECRET || "thisshouldbeabettersecret!";
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGO_URL,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret,
+  },
+});
+const sessionConfig = {
+  store,
+  name: "session",
+  secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // secure: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+app.use(session(sessionConfig));
+
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
 //process.env.MONGO_URL
